@@ -1,7 +1,7 @@
 import requests
 from app.core.config import settings
 
-MODEL_NAME = "llama3"
+MODEL_NAME = "phi3"
 
 DATABASE_ENGINE = "MYSQL"
 
