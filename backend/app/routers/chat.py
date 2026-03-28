@@ -7,7 +7,7 @@ from app.schemas.search import SearchRequest, SearchResponse
 from app.services.real_estate_service import RealEstateService
 
 
-chat_router = APIRouter(tags=["real", "estates", "search"])
+chat_router = APIRouter(tags=["properties"])
 
 
 @chat_router.post("/search", response_model=SearchResponse)
