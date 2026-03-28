@@ -216,3 +216,7 @@ docker compose up --build
 
 > Nota: la base de datos se crea automáticamente al iniciar el proyecto.
 > No es necesario ejecutar scripts manualmente.
+
+## Video demostrativo
+
+[Video](https://www.loom.com/share/2ffa6a2cc4f64304ada3df543006a315)
