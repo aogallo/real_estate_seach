@@ -1,19 +1,28 @@
 from contextlib import asynccontextmanager
+from app.core.config import settings
 from sqlalchemy import text
-from core.config import settings
-from core.database import engine
+from app.core.database import engine
 from fastapi import FastAPI
-from routers.chat import chat_router
+from app.routers.chat import chat_router
+from sqlalchemy.exc import OperationalError
+
 
 @asynccontextmanager
-asycn def lifespan(app: FastAPI):
-    with engine.connect() as conn:
-        conn.execute(text("SELECT 1"))
-        print("Database connected successfully")
+async def lifespan(app: FastAPI):
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+            print("Database connected successfully")
+    except OperationalError as e:
+        print(f"Database connection failed: {e}")
+        raise
+
+    yield
+
+    print("Application shutting down")
+
 
 app = FastAPI(lifespan=lifespan)
-
-
 
 
 @app.get("/")

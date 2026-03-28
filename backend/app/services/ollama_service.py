@@ -1,5 +1,5 @@
 import requests
-from core.config import settings
+from app.core.config import settings
 
 MODEL_NAME = "llama3"
 
