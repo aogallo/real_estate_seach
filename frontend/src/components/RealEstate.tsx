@@ -5,18 +5,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useRealEstateSearch } from "@/hooks/useRealEstate"
+import type { Property } from "@/types/RealEstate"
+import { RealEstateCard } from "./RealEstateCard"
 
-type Property = {
-  id: number
-  title: string
-  description: string
-  type: string
-  price: number
-  rooms: number
-  restroom: number
-  area_m2: number
-  location: string
-}
 const RealEstate = () => {
   const [query, setQuery] = useState("")
 
@@ -57,17 +48,7 @@ const RealEstate = () => {
 
         <div className="grid grid-cols-3 gap-4">
           {results.map((property: Property) => (
-            <Card key={property.id}>
-              <CardHeader>
-                <CardTitle>{property.title}</CardTitle>
-              </CardHeader>
-
-              <CardContent>
-                <p>{property.description}</p>
-                <p>${property.price}</p>
-                <p>{property.rooms} hab</p>
-              </CardContent>
-            </Card>
+            <RealEstateCard key={property.id} property={property} />
           ))}
         </div>
       </div>
