@@ -195,3 +195,22 @@ Response
   ]
 }
 ```
+
+## 🗄 Inicialización de Base de Datos
+
+La base de datos se inicializa automáticamente mediante los archivos:
+
+- `backend/persistence/schema.sql`
+- `backend/persistence/seed.sql`
+
+al levantar Docker Compose por primera vez.
+
+En caso de cambios en la estructura o datos iniciales, es necesario recrear el volumen:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
+
+> Nota: la base de datos se crea automáticamente al iniciar el proyecto.
+> No es necesario ejecutar scripts manualmente.

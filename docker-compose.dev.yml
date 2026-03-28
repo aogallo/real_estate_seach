@@ -12,6 +12,8 @@ services:
       - "3306:3306"
     volumes:
       - mysql_dev_data:/var/lib/mysql
+      - ./backend/persistence/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./backend/persistence/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
     networks:
       - app-network
 
@@ -43,6 +45,17 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+    networks:
+      - app-network
+
+  adminer:
+    image: adminer
+    container_name: adminer_dev
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
     networks:
       - app-network
 
