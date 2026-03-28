@@ -1,0 +1,81 @@
+# ======================
+# 🔐 ENV / SECRETS
+# ======================
+.env
+.env.*
+!.env.example
+
+# ======================
+# 🐍 PYTHON (BACKEND)
+# ======================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# uv
+.uv/
+*.lock.bak
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# mypy / type check
+.mypy_cache/
+
+# ======================
+# 🟢 NODE / FRONTEND
+# ======================
+node_modules/
+dist/
+build/
+.cache/
+.next/
+.nuxt/
+.vite/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ======================
+# 🐳 DOCKER
+# ======================
+docker-compose.override.yml
+
+# ======================
+# 💻 OS / EDITORS
+# ======================
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# JetBrains
+.idea/
+
+# ======================
+# 🗄️ DATABASE / FILES
+# ======================
+*.sqlite3
+*.db
+
+# uploads (si tienes)
+uploads/
+
+# ======================
+# 🧪 MISC
+# ======================
+*.log
+tmp/
+temp/
