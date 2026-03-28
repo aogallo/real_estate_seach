@@ -1,5 +1,5 @@
 INSERT INTO real_estates
-(title, description, type, price, rooms, restroom, area_m2, location, published_date)
+(title, description, type, price, rooms, restroom, area_m2, location, image_url, published_date)
 VALUES
 (
     'Casa familiar en zona residencial',
@@ -8,8 +8,9 @@ VALUES
     250000.00,
     3,
     2,
-    180.5,
+    180.50,
     'Mixco',
+    'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
     '2026-03-20'
 ),
 (
@@ -19,8 +20,9 @@ VALUES
     180000.00,
     2,
     2,
-    95.0,
+    95.00,
     'Ciudad de Guatemala',
+    'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
     '2026-03-18'
 ),
 (
@@ -30,8 +32,9 @@ VALUES
     120000.00,
     0,
     0,
-    500.0,
+    500.00,
     'Villa Nueva',
+    'https://images.unsplash.com/photo-1500382017468-9049fed747ef',
     '2026-03-15'
 ),
 (
@@ -41,8 +44,9 @@ VALUES
     450000.00,
     4,
     3,
-    320.0,
+    320.00,
     'Zona 16',
+    'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
     '2026-03-10'
 ),
 (
@@ -52,8 +56,9 @@ VALUES
     95000.00,
     1,
     1,
-    60.0,
+    60.00,
     'Zona 10',
+    'https://images.unsplash.com/photo-1494526585095-c41746248156',
     '2026-03-22'
 ),
 (
@@ -63,8 +68,9 @@ VALUES
     85000.00,
     2,
     1,
-    110.0,
+    110.00,
     'Amatitlán',
+    'https://images.unsplash.com/photo-1570129477492-45c003edd2be',
     '2026-03-12'
 ),
 (
@@ -74,8 +80,9 @@ VALUES
     520000.00,
     3,
     3,
-    210.0,
+    210.00,
     'Zona 14',
+    'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85',
     '2026-03-25'
 ),
 (
@@ -85,29 +92,32 @@ VALUES
     300000.00,
     0,
     0,
-    800.0,
+    800.00,
     'Carretera a El Salvador',
+    'https://images.unsplash.com/photo-1500382017468-9049fed747ef',
     '2026-03-05'
 ),
 (
-    'Casa premium en zona 15',
-    'Casa con acabados de lujo',
+    'Casa moderna de 5 habitaciones',
+    'Casa espaciosa para familia grande',
     'casa',
-    390000.00,
-    3,
-    2,
-    240.0,
+    600000.00,
+    5,
+    4,
+    450.00,
     'Zona 15',
+    'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c',
     '2026-03-26'
 ),
 (
-    'Apartamento económico',
-    'Ideal para inversión',
+    'Apartamento ejecutivo',
+    'Ideal para profesionales, cerca de oficinas',
     'departamento',
-    70000.00,
+    150000.00,
+    2,
     1,
-    1,
-    55.0,
-    'Mixco',
+    80.00,
+    'Zona 9',
+    'https://images.unsplash.com/photo-1484154218962-a197022b5858',
     '2026-03-27'
 );

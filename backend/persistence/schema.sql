@@ -8,5 +8,6 @@ CREATE TABLE real_estates (
     restroom INT NOT NULL,
     area_m2 DECIMAL(10,2),
     location VARCHAR(255),
+    image_url VARCHAR(255),
     published_date DATE
 );
