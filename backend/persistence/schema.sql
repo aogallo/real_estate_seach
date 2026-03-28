@@ -10,4 +10,4 @@ CREATE TABLE real_estates (
     location VARCHAR(255),
     image_url VARCHAR(255),
     published_date DATE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -29,6 +29,12 @@ IMPORTANT VALUE MAPPING:
 - land / terreno = terreno
 
 
+RULES FOR TEXT SEARCH:
+- For location  ALWAYS use LIKE with wildcards
+- Example: location LIKE '%Zona 14%'
+- Never use exact match for location
+
+
 STRICT RULES:
 1. ONLY generate one SELECT statement
 2. NEVER generate INSERT, UPDATE, DELETE, DROP, ALTER, TRUNCATE

@@ -1,6 +1,7 @@
 services:
   db:
     image: mysql:8
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     container_name: mysql_dev_db
     restart: always
     environment:
