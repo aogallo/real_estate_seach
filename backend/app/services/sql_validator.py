@@ -30,6 +30,8 @@ def validate_sql(sql: str) -> str:
     """
     sql_upper = sql.upper()
 
+    print("Generated SQL:", sql)
+
     for keyword in FORBIDDEN_KEYWORDS:
         if keyword in sql_upper:
             raise ValueError(f"Forbidden SQL keyword: {keyword}")

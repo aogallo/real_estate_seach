@@ -38,6 +38,7 @@ Inteligencia Artificial
 
 📁 Estructura del Monorepo
 
+```text
 real-estate-search/
 │
 ├── docker-compose.yml
@@ -64,6 +65,7 @@ real-estate-search/
 │ └── uv.lock
 │
 └── README.md
+```
 
 🏗 Arquitectura Backend
 
