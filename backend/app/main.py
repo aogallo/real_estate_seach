@@ -1,8 +1,8 @@
 from contextlib import asynccontextmanager
+
 from app.core.config import settings
-from sqlalchemy import text
-from app.core.database import engine
 from fastapi import FastAPI
+from app.core.startup_checks import check_database, check_ollama
 from app.routers.chat import chat_router
 from sqlalchemy.exc import OperationalError
 
@@ -10,9 +10,8 @@ from sqlalchemy.exc import OperationalError
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
-        with engine.connect() as conn:
-            conn.execute(text("SELECT 1"))
-            print("Database connected successfully")
+        check_database()
+        check_ollama()
     except OperationalError as e:
         print(f"Database connection failed: {e}")
         raise
