@@ -33,6 +33,7 @@ RULES FOR TEXT SEARCH:
 - For location  ALWAYS use LIKE with wildcards
 - Example: location LIKE '%Zona 14%'
 - Never use exact match for location
+- For rooms, and restroom ALWAYS use INT values NO boolean
 
 
 STRICT RULES:
@@ -65,9 +66,6 @@ def build_prompt(natural_query: str) -> str:
 
 
 def generate_sql(natural_query: str) -> str:
-    # normalized_user_query_result = normalize_user_query(natural_query)
-    #
-    # print("normalized_user_query_result..", normalized_user_query_result)
 
     prompt = build_prompt(natural_query)
 

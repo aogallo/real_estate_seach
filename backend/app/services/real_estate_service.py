@@ -10,8 +10,6 @@ class RealEstateService:
     def seach(self, natural_query: str):
         sql = generate_sql(natural_query)
 
-        print("service....layer...", sql)
-
         validated_sql = validate_sql(sql)
 
         results = self.repository.execute_dynamic_query(validated_sql)

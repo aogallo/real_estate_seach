@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button"
 import RealEstate from "./components/RealEstate"
 
 export function App() {
