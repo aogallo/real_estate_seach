@@ -6,7 +6,7 @@ engine = create_engine(
     settings.database_url, pool_pre_ping=True, pool_size=10, max_overflow=20, echo=False
 )
 
-SessionLocal = sessionmaker(autocommit=False, autorefresh=False, bind=engine)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 class Base(DeclarativeBase):

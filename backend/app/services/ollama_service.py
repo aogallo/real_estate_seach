@@ -24,7 +24,7 @@ Rules:
 
 def generate_sql(natural_query: str) -> str:
     response = requests.post(
-        settings.ollama_api,
+        f"{settings.ollama_api}/api/generate",
         json={
             "model": MODEL_NAME,
             "prompt": f"{SYSTEM_PROMPT}\n User Query: {natural_query}",

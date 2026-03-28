@@ -11,6 +11,6 @@ def check_database():
 
 
 def check_ollama():
-    response = requests.get(f"{settings.ollama_api}/tags", timeout=5)
+    response = requests.get(f"{settings.ollama_api}/api/tags", timeout=5)
     response.raise_for_status()
     print("Ollama connected successfully")
