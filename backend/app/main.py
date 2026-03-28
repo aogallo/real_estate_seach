@@ -1,8 +1,19 @@
+from contextlib import asynccontextmanager
+from sqlalchemy import text
 from core.config import settings
+from core.database import engine
 from fastapi import FastAPI
 from routers.chat import chat_router
 
-app = FastAPI()
+@asynccontextmanager
+asycn def lifespan(app: FastAPI):
+    with engine.connect() as conn:
+        conn.execute(text("SELECT 1"))
+        print("Database connected successfully")
+
+app = FastAPI(lifespan=lifespan)
+
+
 
 
 @app.get("/")
