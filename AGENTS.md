@@ -6,19 +6,25 @@ Monorepo with React/Vite frontend and FastAPI backend. Natural language real est
 
 ## Run Commands
 
+Makefile available for convenience:
+
 ```bash
-# Start all services (from root)
-docker compose -f docker-compose.dev.yml up --build
+# All services (Docker)
+make dev
 
-# Frontend only (if not using Docker)
-cd frontend && npm install && npm run dev
+# Frontend only
+make frontend-install
+make frontend-dev
 
-# Frontend lint/typecheck (after npm install)
-cd frontend && npm run lint
-cd frontend && npm run typecheck
+# Frontend lint/typecheck
+make frontend-lint
+make frontend-typecheck
 
 # Rebuild after schema changes
-docker compose -f docker-compose.dev.yml down -v && docker compose -f docker-compose.dev.yml up --build
+make dev-rebuild
+
+# Or manually:
+cd frontend && npm install && npm run dev
 ```
 
 ## Service URLs
