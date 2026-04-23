@@ -1,6 +1,13 @@
 from app.repositories.real_estate_repository import RealStateRepository
-from app.services.ollama_service import generate_sql
+from app.core.config import settings
+from app.services import ollama_service, groq_service
 from app.services.sql_validator import validate_sql
+
+
+def get_llm_provider():
+    if settings.llm_provider == "groq":
+        return groq_service
+    return ollama_service
 
 
 class RealEstateService:
@@ -8,7 +15,8 @@ class RealEstateService:
         self.repository = respository
 
     def seach(self, natural_query: str):
-        sql = generate_sql(natural_query)
+        provider = get_llm_provider()
+        sql = provider.generate_sql(natural_query)
 
         validated_sql = validate_sql(sql)
 
