@@ -1,18 +1,16 @@
 services:
   db:
-    image: mysql:8
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    container_name: mysql_dev_db
+    image: postgres:16
+    container_name: postgres_dev_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      POSTGRES_DB: db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql_dev_data:/var/lib/mysql
+      - postgres_dev_data:/var/lib/postgresql/data
       - ./backend/persistence/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
       - ./backend/persistence/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
     networks:
@@ -63,7 +61,7 @@ services:
       - app-network
 
 volumes:
-  mysql_dev_data:
+  postgres_dev_data:
   backend:
   frontend:
   frontend_node_modules:

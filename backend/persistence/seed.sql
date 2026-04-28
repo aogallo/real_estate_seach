@@ -13,7 +13,7 @@ VALUES
     160.00,
     'Zona 10',
     'https://images.unsplash.com/photo-1564013799919-ab600027ffc6',
-    CURDATE() - INTERVAL 10 DAY
+    CURRENT_DATE - INTERVAL '10 days'
 ),
 (
     'Casa moderna en zona 10',
@@ -25,7 +25,7 @@ VALUES
     190.00,
     'Zona 10',
     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-    CURDATE() - INTERVAL 5 DAY
+    CURRENT_DATE - INTERVAL '5 days'
 ),
 
 -- 🏢 Departamentos < 150k
@@ -39,7 +39,7 @@ VALUES
     80.00,
     'Zona 12',
     'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688',
-    CURDATE() - INTERVAL 20 DAY
+    CURRENT_DATE - INTERVAL '20 days'
 ),
 (
     'Departamento compacto',
@@ -51,7 +51,7 @@ VALUES
     60.00,
     'Zona 9',
     'https://images.unsplash.com/photo-1494526585095-c41746248156',
-    CURDATE() - INTERVAL 15 DAY
+    CURRENT_DATE - INTERVAL '15 days'
 ),
 
 -- 🚿 +2 baños y >=150m2
@@ -65,7 +65,7 @@ VALUES
     200.00,
     'Zona 16',
     'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c',
-    CURDATE() - INTERVAL 25 DAY
+    CURRENT_DATE - INTERVAL '25 days'
 ),
 (
     'Residencia de lujo',
@@ -77,7 +77,7 @@ VALUES
     400.00,
     'Zona 14',
     'https://images.unsplash.com/photo-1600585154340-be6161a56a0c',
-    CURDATE() - INTERVAL 3 DAY
+    CURRENT_DATE - INTERVAL '3 days'
 ),
 
 -- 🗓️ Casas últimos 30 días
@@ -91,7 +91,7 @@ VALUES
     170.00,
     'Zona 15',
     'https://images.unsplash.com/photo-1568605114967-8130f3a36994',
-    CURDATE() - INTERVAL 7 DAY
+    CURRENT_DATE - INTERVAL '7 days'
 ),
 
 -- 🌄 Terrenos entre 50k y 100k
@@ -105,7 +105,7 @@ VALUES
     300.00,
     'Villa Nueva',
     'https://images.unsplash.com/photo-1500382017468-9049fed747ef',
-    CURDATE() - INTERVAL 12 DAY
+    CURRENT_DATE - INTERVAL '12 days'
 ),
 (
     'Terreno en venta accesible',
@@ -117,7 +117,7 @@ VALUES
     450.00,
     'Mixco',
     'https://images.unsplash.com/photo-1500382017468-9049fed747ef',
-    CURDATE() - INTERVAL 18 DAY
+    CURRENT_DATE - INTERVAL '18 days'
 ),
 
 -- 🏢 Departamentos 2 habitaciones zona 15
@@ -131,7 +131,7 @@ VALUES
     110.00,
     'Zona 15',
     'https://images.unsplash.com/photo-1484154218962-a197022b5858',
-    CURDATE() - INTERVAL 8 DAY
+    CURRENT_DATE - INTERVAL '8 days'
 ),
 (
     'Departamento moderno zona 15',
@@ -143,5 +143,5 @@ VALUES
     120.00,
     'Zona 15',
     'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85',
-    CURDATE() - INTERVAL 2 DAY
+    CURRENT_DATE - INTERVAL '2 days'
 );

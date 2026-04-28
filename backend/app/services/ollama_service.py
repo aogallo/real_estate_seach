@@ -1,11 +1,13 @@
 import json
+
 import requests
+
 from app.core.config import settings
 from app.services.prompts import build_prompt
 
 MODEL_NAME = "phi3"
 
-DATABASE_ENGINE = "MYSQL"
+DATABASE_ENGINE = "POSTGRESQL"
 
 
 def generate_sql(natural_query: str) -> str:
@@ -33,3 +35,4 @@ def generate_sql(natural_query: str) -> str:
     sql = json.loads(result)["sql"]
 
     return sql
+

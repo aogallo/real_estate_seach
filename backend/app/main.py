@@ -1,16 +1,14 @@
 from contextlib import asynccontextmanager
 
-from app.core.config import settings
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.exc import OperationalError
+
+from app.core.config import settings
 from app.core.startup_checks import check_database, check_ollama
 from app.routers.chat import chat_router
-from sqlalchemy.exc import OperationalError
-from fastapi.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
+origins = settings.cors_origins.split(",")
 
 
 @asynccontextmanager

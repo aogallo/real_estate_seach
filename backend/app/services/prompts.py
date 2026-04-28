@@ -1,7 +1,7 @@
 # Shared prompts for LLM services
 
 SYSTEM_PROMPT = """
-You are an expert MySQL SQL generator.
+You are an expert PostgreSQL SQL generator.
 
 Your task is to convert natural language into a SAFE SQL query.
 
@@ -67,3 +67,4 @@ def build_prompt(natural_query: str) -> str:
     USER REQUEST:
     {natural_query}
     """
+
