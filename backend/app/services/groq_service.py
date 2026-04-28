@@ -1,8 +1,9 @@
 import json
-import os
+
 from groq import Groq
-from app.services.prompts import build_prompt
+
 from app.core.config import settings
+from app.services.prompts import build_prompt
 
 MODEL_NAME = "llama-3.1-70b-versatile"
 
@@ -37,3 +38,4 @@ def generate_sql(natural_query: str) -> str:
     sql = json.loads(result)["sql"]
 
     return sql
+

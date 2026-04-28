@@ -1,5 +1,6 @@
 import requests
 from sqlalchemy import text
+
 from app.core.config import settings
 from app.core.database import engine
 
@@ -11,6 +12,7 @@ def check_database():
 
 
 def check_ollama():
+    print("llm_provider.........", settings.llm_provider)
     if settings.llm_provider != "ollama":
         print("Using Groq provider, skipping Ollama check")
         return

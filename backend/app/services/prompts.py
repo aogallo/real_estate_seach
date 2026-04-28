@@ -67,3 +67,4 @@ def build_prompt(natural_query: str) -> str:
     USER REQUEST:
     {natural_query}
     """
+

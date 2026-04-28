@@ -1,5 +1,7 @@
 import json
+
 import requests
+
 from app.core.config import settings
 from app.services.prompts import build_prompt
 
@@ -33,3 +35,4 @@ def generate_sql(natural_query: str) -> str:
     sql = json.loads(result)["sql"]
 
     return sql
+

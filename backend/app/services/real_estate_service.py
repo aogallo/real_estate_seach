@@ -1,13 +1,13 @@
-from app.repositories.real_estate_repository import RealStateRepository
 from app.core.config import settings
-from app.services import ollama_service, groq_service
+from app.repositories.real_estate_repository import RealStateRepository
+from app.services import groq_service, ollama_service
 from app.services.sql_validator import validate_sql
 
 
 def get_llm_provider():
-    if settings.llm_provider == "groq":
-        return groq_service
-    return ollama_service
+    if settings.llm_provider == "ollama":
+        return ollama_service
+    return groq_service
 
 
 class RealEstateService:
@@ -23,3 +23,4 @@ class RealEstateService:
         results = self.repository.execute_dynamic_query(validated_sql)
 
         return {"sql": validated_sql, "results": results}
+
