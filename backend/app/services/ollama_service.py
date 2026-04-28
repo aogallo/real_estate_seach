@@ -5,7 +5,7 @@ from app.services.prompts import build_prompt
 
 MODEL_NAME = "phi3"
 
-DATABASE_ENGINE = "MYSQL"
+DATABASE_ENGINE = "POSTGRESQL"
 
 
 def generate_sql(natural_query: str) -> str:

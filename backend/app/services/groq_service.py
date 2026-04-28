@@ -6,7 +6,7 @@ from app.core.config import settings
 
 MODEL_NAME = "llama-3.1-70b-versatile"
 
-DATABASE_ENGINE = "MYSQL"
+DATABASE_ENGINE = "POSTGRESQL"
 
 
 def generate_sql(natural_query: str) -> str:

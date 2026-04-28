@@ -7,10 +7,7 @@ from app.routers.chat import chat_router
 from sqlalchemy.exc import OperationalError
 from fastapi.middleware.cors import CORSMiddleware
 
-origins = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
-]
+origins = settings.cors_origins.split(",")
 
 
 @asynccontextmanager

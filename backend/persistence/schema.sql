@@ -1,5 +1,5 @@
 CREATE TABLE real_estates (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT,
     type VARCHAR(50) NOT NULL,
@@ -10,4 +10,4 @@ CREATE TABLE real_estates (
     location VARCHAR(255),
     image_url VARCHAR(255),
     published_date DATE
-) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+);
