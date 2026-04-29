@@ -10,7 +10,8 @@ import { RealEstateCard } from "./RealEstateCard"
 const RealEstate = () => {
   const [query, setQuery] = useState("")
   const [copied, setCopied] = useState(false)
-  const { mutate, data, isPending, isSuccess } = useRealEstateSearch()
+  const { mutate, data, isPending, isSuccess, isError, error } =
+    useRealEstateSearch()
 
   const sqlResult = data?.sql || ""
   const realEstates = data?.results || []
@@ -79,6 +80,16 @@ const RealEstate = () => {
             </Button>
           </CardContent>
         </Card>
+      )}
+
+      {/* ❌ Error */}
+      {isError && (
+        <div className="rounded-xl border border-red-200 bg-red-50 px-6 py-5">
+          <p className="font-medium text-red-700">No se pudo completar la búsqueda</p>
+          <p className="mt-1 text-sm text-red-600">
+            {error instanceof Error ? error.message : "Ocurrió un error inesperado."}
+          </p>
+        </div>
       )}
 
       {/* ⏳ Loading */}
