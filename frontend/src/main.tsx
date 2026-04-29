@@ -8,7 +8,7 @@ import { queryClient } from "./lib/queryClient.ts"
 
 createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
+    <ThemeProvider defaultTheme="dark">
       <App />
     </ThemeProvider>
   </QueryClientProvider>

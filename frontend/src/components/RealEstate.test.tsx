@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest"
 import { http, HttpResponse } from "msw"
 import type { ReactNode } from "react"
+import { MemoryRouter } from "react-router-dom"
 import { server } from "@/test/server"
 import RealEstate from "./RealEstate"
 
@@ -12,7 +13,9 @@ const createWrapper = () => {
     defaultOptions: { mutations: { retry: false } },
   })
   return ({ children }: { children: ReactNode }) => (
-    <QueryClientProvider client={client}>{children}</QueryClientProvider>
+    <MemoryRouter>
+      <QueryClientProvider client={client}>{children}</QueryClientProvider>
+    </MemoryRouter>
   )
 }
 
@@ -20,11 +23,15 @@ const renderRealEstate = () =>
   render(<RealEstate />, { wrapper: createWrapper() })
 
 describe("RealEstate", () => {
+  beforeEach(() => {
+    localStorage.clear()
+  })
+
   describe("Initial render", () => {
     it("renders the search input with placeholder text", () => {
       renderRealEstate()
       expect(
-        screen.getByPlaceholderText(/casas con 3 habitaciones/i),
+        screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       ).toBeInTheDocument()
     })
 
@@ -35,13 +42,15 @@ describe("RealEstate", () => {
 
     it("does not show the SQL card on mount", () => {
       renderRealEstate()
-      expect(screen.queryByText(/traducción automática/i)).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(/traducción automática/i)
+      ).not.toBeInTheDocument()
     })
 
     it("does not show the loading text on mount", () => {
       renderRealEstate()
       expect(
-        screen.queryByText("Buscando propiedades..."),
+        screen.queryByText("Buscando propiedades...")
       ).not.toBeInTheDocument()
     })
   })
@@ -66,7 +75,7 @@ describe("RealEstate", () => {
       await userEvent.type(input, "casas en zona 14")
       await userEvent.click(screen.getByRole("button", { name: "Buscar" }))
       await waitFor(() =>
-        expect(screen.queryByText("Buscando...")).not.toBeInTheDocument(),
+        expect(screen.queryByText("Buscando...")).not.toBeInTheDocument()
       )
       expect(screen.getByText(/traducción automática/i)).toBeInTheDocument()
     })
@@ -76,7 +85,7 @@ describe("RealEstate", () => {
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
-        expect(screen.getByText(/traducción automática/i)).toBeInTheDocument(),
+        expect(screen.getByText(/traducción automática/i)).toBeInTheDocument()
       )
     })
   })
@@ -87,7 +96,7 @@ describe("RealEstate", () => {
         http.post("http://localhost:8000/search", async () => {
           await new Promise((resolve) => setTimeout(resolve, 200))
           return HttpResponse.json({ sql: "SELECT 1", results: [] })
-        }),
+        })
       )
     })
 
@@ -95,21 +104,27 @@ describe("RealEstate", () => {
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas{Enter}")
-      expect(await screen.findByRole("button", { name: "Buscando..." })).toBeInTheDocument()
+      expect(
+        await screen.findByRole("button", { name: "Buscando..." })
+      ).toBeInTheDocument()
     })
 
     it("disables the Buscar button while pending", async () => {
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas{Enter}")
-      expect(await screen.findByRole("button", { name: "Buscando..." })).toBeDisabled()
+      expect(
+        await screen.findByRole("button", { name: "Buscando..." })
+      ).toBeDisabled()
     })
 
     it("shows the loading paragraph while pending", async () => {
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas{Enter}")
-      expect(await screen.findByText("Buscando propiedades...")).toBeInTheDocument()
+      expect(
+        await screen.findByText("Buscando propiedades...")
+      ).toBeInTheDocument()
     })
   })
 
@@ -119,7 +134,7 @@ describe("RealEstate", () => {
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
-        expect(screen.getByText(/traducción automática/i)).toBeInTheDocument(),
+        expect(screen.getByText(/traducción automática/i)).toBeInTheDocument()
       )
     })
 
@@ -129,8 +144,8 @@ describe("RealEstate", () => {
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
         expect(
-          screen.getByText("SELECT * FROM properties WHERE zone = 14"),
-        ).toBeInTheDocument(),
+          screen.getByText("SELECT * FROM properties WHERE zone = 14")
+        ).toBeInTheDocument()
       )
     })
 
@@ -138,9 +153,7 @@ describe("RealEstate", () => {
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
-      await waitFor(() =>
-        expect(screen.getAllByRole("img")).toHaveLength(1),
-      )
+      await waitFor(() => expect(screen.getAllByRole("img")).toHaveLength(1))
     })
 
     it("shows the Copiar button after a successful search", async () => {
@@ -148,7 +161,9 @@ describe("RealEstate", () => {
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
-        expect(screen.getByRole("button", { name: /copiar/i })).toBeInTheDocument(),
+        expect(
+          screen.getByRole("button", { name: /copiar/i })
+        ).toBeInTheDocument()
       )
     })
   })
@@ -160,8 +175,8 @@ describe("RealEstate", () => {
       await userEvent.type(input, "empty{Enter}")
       await waitFor(() =>
         expect(
-          screen.getByText("No se encontraron propiedades"),
-        ).toBeInTheDocument(),
+          screen.getByText("No se encontraron propiedades")
+        ).toBeInTheDocument()
       )
     })
 
@@ -170,9 +185,11 @@ describe("RealEstate", () => {
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "empty{Enter}")
       await waitFor(() =>
-        expect(screen.getByText("casas en zona 14")).toBeInTheDocument(),
+        expect(screen.getByText("casas en zona 14")).toBeInTheDocument()
       )
-      expect(screen.getByText("apartamentos menores a 200000")).toBeInTheDocument()
+      expect(
+        screen.getByText("apartamentos menores a 200000")
+      ).toBeInTheDocument()
       expect(screen.getByText("terrenos grandes")).toBeInTheDocument()
     })
 
@@ -181,11 +198,11 @@ describe("RealEstate", () => {
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "empty{Enter}")
       await waitFor(() =>
-        expect(screen.getByText("casas en zona 14")).toBeInTheDocument(),
+        expect(screen.getByText("casas en zona 14")).toBeInTheDocument()
       )
       await userEvent.click(screen.getByText("casas en zona 14"))
       await waitFor(() =>
-        expect(screen.getByText(/traducción automática/i)).toBeInTheDocument(),
+        expect(screen.getByText(/traducción automática/i)).toBeInTheDocument()
       )
     })
   })
@@ -193,21 +210,21 @@ describe("RealEstate", () => {
   describe("Error state", () => {
     it("shows an error heading when the server is unreachable", async () => {
       server.use(
-        http.post("http://localhost:8000/search", () => HttpResponse.error()),
+        http.post("http://localhost:8000/search", () => HttpResponse.error())
       )
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
         expect(
-          screen.getByText("No se pudo completar la búsqueda"),
-        ).toBeInTheDocument(),
+          screen.getByText("No se pudo completar la búsqueda")
+        ).toBeInTheDocument()
       )
     })
 
     it("shows the specific error message from the hook", async () => {
       server.use(
-        http.post("http://localhost:8000/search", () => HttpResponse.error()),
+        http.post("http://localhost:8000/search", () => HttpResponse.error())
       )
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
@@ -215,41 +232,48 @@ describe("RealEstate", () => {
       await waitFor(() =>
         expect(
           screen.getByText(
-            "No se pudo conectar al servidor. Verificá que el backend esté corriendo.",
-          ),
-        ).toBeInTheDocument(),
+            "No se pudo conectar al servidor. Verificá que el backend esté corriendo."
+          )
+        ).toBeInTheDocument()
       )
     })
 
     it("shows a server error message when the server responds with 500", async () => {
       server.use(
         http.post("http://localhost:8000/search", () =>
-          HttpResponse.json({ detail: "Internal Server Error" }, { status: 500 }),
-        ),
+          HttpResponse.json(
+            { detail: "Internal Server Error" },
+            { status: 500 }
+          )
+        )
       )
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
         expect(
-          screen.getByText("Error en el servidor. Intentá de nuevo en un momento."),
-        ).toBeInTheDocument(),
+          screen.getByText(
+            "Error en el servidor. Intentá de nuevo en un momento."
+          )
+        ).toBeInTheDocument()
       )
     })
 
     it("does not show the SQL card when there is an error", async () => {
       server.use(
-        http.post("http://localhost:8000/search", () => HttpResponse.error()),
+        http.post("http://localhost:8000/search", () => HttpResponse.error())
       )
       renderRealEstate()
       const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
       await userEvent.type(input, "casas en zona 14{Enter}")
       await waitFor(() =>
         expect(
-          screen.getByText("No se pudo completar la búsqueda"),
-        ).toBeInTheDocument(),
+          screen.getByText("No se pudo completar la búsqueda")
+        ).toBeInTheDocument()
       )
-      expect(screen.queryByText(/traducción automática/i)).not.toBeInTheDocument()
+      expect(
+        screen.queryByText(/traducción automática/i)
+      ).not.toBeInTheDocument()
     })
   })
 
@@ -270,9 +294,11 @@ describe("RealEstate", () => {
       const copyBtn = await screen.findByRole("button", { name: /copiar/i })
       await userEvent.click(copyBtn)
       expect(navigator.clipboard.writeText).toHaveBeenCalledWith(
-        "SELECT * FROM properties WHERE zone = 14",
+        "SELECT * FROM properties WHERE zone = 14"
       )
-      expect(screen.getByRole("button", { name: /copiado/i })).toBeInTheDocument()
+      expect(
+        screen.getByRole("button", { name: /copiado/i })
+      ).toBeInTheDocument()
     })
   })
 })
