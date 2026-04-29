@@ -25,6 +25,12 @@ frontend-typecheck:
 frontend-build:
 	cd frontend && npm run build
 
+frontend-test:
+	cd frontend && npm test
+
+frontend-test-coverage:
+	cd frontend && npm run test:coverage
+
 # Backend only
 backend-install:
 	cd backend && uv sync
