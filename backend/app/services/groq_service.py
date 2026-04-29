@@ -5,7 +5,7 @@ from groq import Groq
 from app.core.config import settings
 from app.services.prompts import build_prompt
 
-MODEL_NAME = "llama-3.1-70b-versatile"
+MODEL_NAME = "llama-3.3-70b-versatile"
 
 DATABASE_ENGINE = "POSTGRESQL"
 
