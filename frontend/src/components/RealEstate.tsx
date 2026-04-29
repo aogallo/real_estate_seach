@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Search, Copy, Check } from "lucide-react"
+import { Search, Copy, Check, Info } from "lucide-react"
 import { useSearchParams } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
@@ -78,6 +78,13 @@ const RealEstate = () => {
         </Button>
       </div>
 
+      {/* Free tier notice */}
+      <p className="flex items-center gap-1.5 text-xs text-pe-on-surface-variant">
+        <Info size={12} className="shrink-0" />
+        Los resultados pueden tardar unos segundos — la infraestructura es
+        gratuita y puede presentar pequeñas demoras.
+      </p>
+
       {/* SQL card */}
       {sqlResult && (
         <div className="relative rounded-xl border-l-4 border-pe-secondary bg-pe-surface-container p-4">
@@ -127,9 +134,12 @@ const RealEstate = () => {
 
       {/* Loading */}
       {isPending && (
-        <p className="text-center text-pe-on-surface-variant">
-          Buscando propiedades...
-        </p>
+        <div className="space-y-1 text-center">
+          <p className="text-pe-on-surface-variant">Buscando propiedades...</p>
+          <p className="text-xs text-pe-on-surface-variant/70">
+            Esto puede tomar unos segundos en infraestructura gratuita.
+          </p>
+        </div>
       )}
 
       {/* Results grid */}
