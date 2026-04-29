@@ -11,8 +11,6 @@ services:
       - "5432:5432"
     volumes:
       - postgres_dev_data:/var/lib/postgresql/data
-      - ./backend/persistence/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
-      - ./backend/persistence/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
     networks:
       - app-network
 
