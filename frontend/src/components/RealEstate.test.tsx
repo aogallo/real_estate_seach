@@ -190,6 +190,69 @@ describe("RealEstate", () => {
     })
   })
 
+  describe("Error state", () => {
+    it("shows an error heading when the server is unreachable", async () => {
+      server.use(
+        http.post("http://localhost:8000/search", () => HttpResponse.error()),
+      )
+      renderRealEstate()
+      const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
+      await userEvent.type(input, "casas en zona 14{Enter}")
+      await waitFor(() =>
+        expect(
+          screen.getByText("No se pudo completar la búsqueda"),
+        ).toBeInTheDocument(),
+      )
+    })
+
+    it("shows the specific error message from the hook", async () => {
+      server.use(
+        http.post("http://localhost:8000/search", () => HttpResponse.error()),
+      )
+      renderRealEstate()
+      const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
+      await userEvent.type(input, "casas en zona 14{Enter}")
+      await waitFor(() =>
+        expect(
+          screen.getByText(
+            "No se pudo conectar al servidor. Verificá que el backend esté corriendo.",
+          ),
+        ).toBeInTheDocument(),
+      )
+    })
+
+    it("shows a server error message when the server responds with 500", async () => {
+      server.use(
+        http.post("http://localhost:8000/search", () =>
+          HttpResponse.json({ detail: "Internal Server Error" }, { status: 500 }),
+        ),
+      )
+      renderRealEstate()
+      const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
+      await userEvent.type(input, "casas en zona 14{Enter}")
+      await waitFor(() =>
+        expect(
+          screen.getByText("Error en el servidor. Intentá de nuevo en un momento."),
+        ).toBeInTheDocument(),
+      )
+    })
+
+    it("does not show the SQL card when there is an error", async () => {
+      server.use(
+        http.post("http://localhost:8000/search", () => HttpResponse.error()),
+      )
+      renderRealEstate()
+      const input = screen.getByPlaceholderText(/casas con 3 habitaciones/i)
+      await userEvent.type(input, "casas en zona 14{Enter}")
+      await waitFor(() =>
+        expect(
+          screen.getByText("No se pudo completar la búsqueda"),
+        ).toBeInTheDocument(),
+      )
+      expect(screen.queryByText(/traducción automática/i)).not.toBeInTheDocument()
+    })
+  })
+
   describe("Copy SQL button", () => {
     beforeEach(() => {
       vi.useFakeTimers()

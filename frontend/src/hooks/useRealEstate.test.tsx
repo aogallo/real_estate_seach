@@ -63,5 +63,42 @@ describe("useRealEstateSearch", () => {
       result.current.mutate("casas en zona 14")
     })
     await waitFor(() => expect(result.current.isError).toBe(true))
+    expect(result.current.error?.message).toBe(
+      "Error en el servidor. Intentá de nuevo en un momento.",
+    )
+  })
+
+  it("returns a connection error message when the server is unreachable", async () => {
+    server.use(
+      http.post("http://localhost:8000/search", () => HttpResponse.error()),
+    )
+    const { result } = renderHook(() => useRealEstateSearch(), {
+      wrapper: createWrapper(),
+    })
+    act(() => {
+      result.current.mutate("casas en zona 14")
+    })
+    await waitFor(() => expect(result.current.isError).toBe(true))
+    expect(result.current.error?.message).toBe(
+      "No se pudo conectar al servidor. Verificá que el backend esté corriendo.",
+    )
+  })
+
+  it("returns a validation error message when server responds with 422", async () => {
+    server.use(
+      http.post("http://localhost:8000/search", () =>
+        HttpResponse.json({ detail: "Unprocessable Entity" }, { status: 422 }),
+      ),
+    )
+    const { result } = renderHook(() => useRealEstateSearch(), {
+      wrapper: createWrapper(),
+    })
+    act(() => {
+      result.current.mutate("casas en zona 14")
+    })
+    await waitFor(() => expect(result.current.isError).toBe(true))
+    expect(result.current.error?.message).toBe(
+      "La búsqueda no es válida. Intentá reformularla.",
+    )
   })
 })
