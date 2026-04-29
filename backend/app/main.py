@@ -25,7 +25,45 @@ async def lifespan(app: FastAPI):
     print("Application shutting down")
 
 
-app = FastAPI(lifespan=lifespan)
+tags_metadata = [
+    {
+        "name": "properties",
+        "description": "Search real estate listings using natural language queries. Queries are translated to SQL via an LLM.",
+    },
+    {
+        "name": "health",
+        "description": "Application health and status endpoints.",
+    },
+]
+
+app = FastAPI(
+    lifespan=lifespan,
+    title="Precision Estate Engine",
+    description="""
+A natural language real estate search API powered by LLMs.
+
+## How it works
+
+Send a plain-text query and the API will:
+1. Translate it to a safe SQL query using an LLM (Groq or Ollama)
+2. Execute the query against the database
+3. Return matching properties along with the generated SQL
+
+## LLM Providers
+- **Groq** (default in production) — cloud-based, fast inference
+- **Ollama** — local model, no external API needed
+
+## Notes
+- Only `SELECT` queries are executed — no write operations allowed
+- Infrastructure runs on a free tier, responses may take a few seconds
+""",
+    version="1.0.0",
+    openapi_tags=tags_metadata,
+    contact={
+        "name": "Allan Gallo",
+        "url": "https://github.com/aogallo",
+    },
+)
 
 
 app.add_middleware(
@@ -37,9 +75,9 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-async def root():
-    return {"message": f"Hello World Testing Reload {settings.database_url}"}
+@app.get("/health", tags=["health"], summary="Health check")
+async def health():
+    return {"status": "ok"}
 
 
 prefix = "/api"

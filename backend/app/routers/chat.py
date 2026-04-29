@@ -10,7 +10,18 @@ from app.services.real_estate_service import RealEstateService
 chat_router = APIRouter(tags=["properties"])
 
 
-@chat_router.post("/search", response_model=SearchResponse)
+@chat_router.post(
+    "/search",
+    response_model=SearchResponse,
+    summary="Search properties using natural language",
+    description="""
+Translate a natural language query into SQL and return matching real estate listings.
+
+The query is processed by an LLM which generates a safe SQL statement.
+Only `SELECT` queries are executed — no write operations are allowed.
+""",
+    response_description="Generated SQL query and list of matching properties",
+)
 async def chat(request: SearchRequest, db: Session = Depends(get_db)):
     try:
         repository = RealStateRepository(db)
