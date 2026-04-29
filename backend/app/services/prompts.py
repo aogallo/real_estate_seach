@@ -40,10 +40,9 @@ STRICT RULES:
 8. Response MUST end with semicolon
 
 STRICT OUTPUT RULES:
-- DO NOT use markdown
-- DO NOT use ```sql
-- RETURN plain text only
-- START directly with SELECT
+- Return ONLY a valid JSON object with this exact structure: {"sql": "<your SELECT statement>"}
+- DO NOT include markdown, explanations, or any text outside the JSON
+- The SQL value must start with SELECT and end with a semicolon
 """
 
 ALLOWED_COLUMNS = [
