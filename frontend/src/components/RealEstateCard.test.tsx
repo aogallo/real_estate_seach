@@ -18,7 +18,7 @@ describe("RealEstateCard", () => {
 
   it("renders the price with dollar sign and locale formatting", () => {
     render(<RealEstateCard property={mockProperty} />)
-    expect(screen.getByText(/\$[\d,\.]+/)).toBeInTheDocument()
+    expect(screen.getByText(/\$[\d,.]+/)).toBeInTheDocument()
   })
 
   it("renders the rooms count", () => {
