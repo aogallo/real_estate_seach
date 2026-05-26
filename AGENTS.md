@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Monorepo with React/Vite frontend and FastAPI backend. Natural language real estate search using Ollama LLM + MySQL.
+Monorepo with React/Vite frontend and FastAPI backend. Natural language real estate search using LLM (Groq default, Ollama optional) + PostgreSQL.
 
 ## Run Commands
 
@@ -34,7 +34,7 @@ cd frontend && npm install && npm run dev
 | Frontend | http://localhost:5173 |
 | Backend | http://localhost:8000 |
 | API Docs | http://localhost:8000/docs |
-| MySQL | localhost:3306 |
+| PostgreSQL | localhost:5432 |
 | Adminer | http://localhost:8080 |
 
 ## Architecture
@@ -49,5 +49,5 @@ Entry point: `backend/app/main.py`
 
 - **Ollama runs on host**, not in Docker. Must have `ollama serve` running on machine before starting containers.
 - Backend uses `extra_hosts` to reach host's Ollama from inside container.
-- Recreate MySQL volume (`-v` flag) when schema or seed data changes.
+- Recreate PostgreSQL volume (`-v` flag) when schema or seed data changes.
 - Python uses UV package manager (see `backend/pyproject.toml`).
